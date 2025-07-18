@@ -1,0 +1,165 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil - Empleado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #111; /* cambiado de #111827 */
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 1.6rem;
+            margin-left: 70px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            background-color: #111; /* cambiado de #111827 */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #1e90ff; /* cambiado de #3b82f6 */
+        }
+
+        .main-content {
+            margin-left: 90px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            background-color: #111; /* cambiado de #111827 */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            color: #333;
+            font-size: 15px;
+        }
+
+        .section-description {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('empleado_dashboard') }}"><i class="fas fa-home"></i><span>panel</span></a>
+        <a href="{{ url_for('empleado_inicio') }}"><i class="fas fa-home"></i><span>Inicio</span></a>
+        <a href="{{ url_for('perfil_empleado') }}"><i class="fas fa-user"></i><span>Perfil</span></a>
+        <a href="{{ url_for('empleado_asistencia') }}"><i class="fas fa-id-card"></i><span>Conductores</span></a>
+        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+    </nav>
+
+    <header>PERFIL DEL USUARIO</header>
+
+    <div class="main-content">
+        <div class="section">
+            <h2>Datos del Usuario</h2>
+            <p class="section-description">Información básica sobre tu cuenta de acceso al sistema.</p>
+            <p><strong>Usuario:</strong> {{ user.username }}</p>
+            <p><strong>ID:</strong> {{ user.user_id }}</p>
+            <p><strong>Contraseña:</strong> {{ password_clara or 'No disponible' }}</p>
+            <p><strong>Usuario Panel Asistencia:</strong> {{ usuario_panel }}</p>
+            <p><strong>Clave Panel Asistencia:</strong> {{ clave_panel }}</p>
+        </div>
+
+        {% if vehiculo %}
+        <div class="section">
+            <h2>Vehículo Asignado</h2>
+            <p class="section-description">Vehículo asignado por la empresa actualmente.</p>
+            <p><strong>Modelo:</strong> {{ vehiculo.model }}</p>
+        </div>
+        {% endif %}
+
+        {% if licencia %}
+        <div class="section">
+            <h2>Licencia</h2>
+            <p class="section-description">Datos de la licencia registrada por el conductor.</p>
+            <p><strong>Tipo:</strong> {{ licencia.license_type }}</p>
+        </div>
+        {% endif %}
+
+        {% if incidentes %}
+        <div class="section">
+            <h2>Historial de Incidentes</h2>
+            <p class="section-description">Incidentes registrados durante tus actividades.</p>
+            <ul>
+                {% for i in incidentes %}
+                    <li>{{ i.date }} - {{ i.incident_type }}: {{ i.description }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if historial %}
+        <div class="section">
+            <h2>Historial de Viajes</h2>
+            <p class="section-description">Resumen de los viajes realizados.</p>
+            <ul>
+                {% for h in historial %}
+                    <li>{{ h.notes }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+

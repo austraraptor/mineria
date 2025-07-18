@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Minero</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 100vh;
+            background-color: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #1e90ff;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 70px;
+            right: 0;
+            background-color: #111;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 6rem 2rem 2rem 2rem;
+            margin-left: 70px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .welcome h2 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .welcome p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Menú lateral -->
+        <nav>
+            <a href="{{ url_for('minero_dashboard') }}"><i class="fas fa-home"></i><span>Panel</span></a>
+            <a href="{{ url_for('minero_inicio') }}"><i class="fas fa-home"></i><span>Inicio</span></a>
+            <a href="{{ url_for('minero_perfil') }}"><i class="fas fa-user"></i><span>Perfil</span></a>
+            <a href="{{ url_for('minero_reservas') }}"><i class="fas fa-calendar-check"></i><span>Reservas</span></a>
+            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+        </nav>
+
+        <!-- Encabezado -->
+        <header>PANEL DE USUARIO MINERO</header>
+
+        <!-- Contenido principal -->
+        <main>
+            <div class="welcome">
+                <h2>Bienvenido, {{ username }}</h2>
+                <p>
+                    Estás accediendo al sistema de transporte inteligente para trabajadores del sector minero.
+                    Desde este panel podrás consultar tu información personal, verificar tu historial de reservas,
+                    planificar tus traslados y mantenerte informado sobre actualizaciones relevantes de la empresa.
+                </p>
+                <p>
+                    Nuestro objetivo es brindar una experiencia segura, eficiente y transparente a todos los colaboradores.
+                    Este entorno ha sido diseñado pensando en la comodidad del usuario, facilitando el acceso a los servicios
+                    esenciales en tan solo unos clics.
+                </p>
+                <p>
+                    Si necesitas asistencia adicional o detectas algún inconveniente, por favor comunícate con el equipo de soporte
+                    técnico. Estamos aquí para ayudarte.
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

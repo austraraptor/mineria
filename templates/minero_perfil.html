@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil Minero</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; }
+        header { background-color: #111; color: white; text-align: center; padding: 1rem; margin-left: 70px; }
+        nav {
+            position: fixed; top: 0; left: 0; width: 70px; height: 100vh;
+            background-color: #111; display: flex; flex-direction: column;
+            align-items: center; padding-top: 60px;
+        }
+        nav a {
+            color: white; text-decoration: none; margin: 20px 0;
+            display: flex; flex-direction: column; align-items: center; font-size: 12px;
+        }
+        nav a:hover { color: #1e90ff; }
+        main { margin-left: 90px; padding: 2rem; }
+
+        .section-title {
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: -10px;
+            width: fit-content;
+        }
+
+        .card-group {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .item {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .item strong {
+            width: 180px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('minero_dashboard') }}"><i class="fas fa-home"></i><span>Panel</span></a>
+        <a href="{{ url_for('minero_inicio') }}"><i class="fas fa-home"></i><span>Inicio</span></a>
+        <a href="{{ url_for('minero_perfil') }}"><i class="fas fa-user"></i><span>Perfil</span></a>
+        <a href="{{ url_for('minero_reservas') }}"><i class="fas fa-car"></i><span>Reservas</span></a>
+        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+    </nav>
+    
+    <header>PERFIL DEL MINERO</header>
+    
+    <main>
+        <div class="section-title">Identificación del Minero</div>
+        <div class="card-group">
+            <div class="item"><strong>Nombre de Usuario:</strong> {{ username }}</div>
+            <div class="item"><strong>ID de Usuario:</strong> {{ user_id }}</div>
+            <div class="item"><strong>Rol:</strong> {{ role }}</div>
+        </div>
+
+        <div class="section-title">Asignación de Transporte</div>
+        <div class="card-group">
+            <div class="item"><strong>Transporte Asignado:</strong> {{ vehiculo or 'No asignado' }}</div>
+            <div class="item"><strong>Compañía:</strong> {{ company }}</div>
+        </div>
+
+        <div class="section-title">Credenciales de Acceso</div>
+        <div class="card-group">
+            <div class="item"><strong>Contraseña:</strong> {{ password_clara or 'no disponible' }}</div>
+        </div>
+    </main>
+</body>
+</html>
+

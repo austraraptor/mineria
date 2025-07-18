@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Empleado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            font-size: 1.4rem;
+            margin-left: 70px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            background-color: #111;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        nav a:hover {
+            color: #1e90ff;
+        }
+
+        .main-content {
+            margin-left: 70px;
+            padding: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 18px;
+        }
+
+        .card strong {
+            display: block;
+            background-color: #111;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .justificaciones-list {
+            font-size: 16px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .justificaciones-list li {
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .justificaciones-list hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        .grid-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .highlight {
+            color: #1e90ff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('empleado_dashboard') }}"><i class="fas fa-home"></i><span>panel</span></a>
+        <a href="{{ url_for('empleado_inicio') }}"><i class="fas fa-home"></i><span>Inicio</span></a>
+        <a href="{{ url_for('perfil_empleado') }}"><i class="fas fa-user"></i><span>Perfil</span></a>
+        <a href="{{ url_for('empleado_asistencia') }}"><i class="fas fa-id-card"></i><span>Conductores</span></a>
+        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+    </nav>
+
+    <header>PANEL DE USUARIO</header>
+
+    <div class="main-content">
+        <div class="card">
+            <p>Bienvenido, <span class="highlight">{{ username }}</span>. Este es tu panel principal donde puedes consultar información clave del sistema de transporte minero.</p>
+        </div>
+
+        <div class="grid-panel">
+            <div class="card">
+                <strong>Total de Conductores Activos</strong>
+                <p>Este número representa la cantidad de conductores disponibles actualmente para operar unidades dentro del servicio de transporte.</p>
+                <p class="highlight">{{ total_conductores }}</p>
+            </div>
+
+            <div class="card">
+                <strong>Total de Vehículos Disponibles</strong>
+                <p>Muestra cuántas unidades están habilitadas para transportar a los mineros desde y hacia las zonas de operación.</p>
+                <p class="highlight">{{ total_vehiculos }}</p>
+            </div>
+
+            <div class="card">
+                <strong>Total de Reservas Activas o Pendientes</strong>
+                <p>Incluye todas las solicitudes de transporte programadas que están en curso o pendientes de ejecución.</p>
+                <p class="highlight">{{ total_reservas }}</p>
+            </div>
+
+            <div class="card">
+                <strong>Nombre del Empleado</strong>
+                <p>Identificación del usuario actualmente autenticado en el sistema.</p>
+                <p class="highlight">{{ username }}</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <strong>Justificaciones por Tardanza</strong>
+            <p>Registro de mensajes enviados por los mineros justificando una llegada fuera del horario establecido.</p>
+            {% if justificaciones %}
+                <ul class="justificaciones-list">
+                    {% for j in justificaciones %}
+                        <li>
+                            <strong>{{ j.nombre_minero }} (ID: {{ j.id_minero }})</strong><br>
+                            <em>{{ j.mensaje }}</em><br>
+                            <small>Fecha: {{ j.fecha.strftime('%d/%m/%Y %H:%M') }}</small>
+                        </li>
+                        <hr>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay justificaciones registradas.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

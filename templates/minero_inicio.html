@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio Minero</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-left: 70px;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 100vh;
+            background-color: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+        }
+        nav a:hover {
+            color: #1e90ff;
+        }
+        main {
+            margin-left: 70px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-header {
+            background-color: #111;
+            color: white;
+            padding: 12px 16px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .card-body {
+            padding: 16px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('minero_dashboard') }}"><i class="fas fa-home"></i><span>Panel</span></a>
+        <a href="{{ url_for('minero_inicio') }}"><i class="fas fa-home"></i><span>Inicio</span></a>
+        <a href="{{ url_for('minero_perfil') }}"><i class="fas fa-user"></i><span>Perfil</span></a>
+        <a href="{{ url_for('minero_reservas') }}"><i class="fas fa-car"></i><span>Reservas</span></a>
+        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+    </nav>
+
+    <header>PANEL DE CONTROL DEL MINERO</header>
+
+    <main>
+        <div class="card">
+            <div class="card-header">Identificación del Minero</div>
+            <div class="card-body">
+                Tu código de identificación único dentro del sistema es: <strong>{{ miner_id }}</strong>.
+                Este identificador permite asociar tus actividades y reservas dentro del sistema.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Nombre de Usuario</div>
+            <div class="card-body">
+                Actualmente estás conectado como <strong>{{ username }}</strong>. Este nombre de usuario es necesario para acceder de manera segura a tu cuenta.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Incidentes Registrados</div>
+            <div class="card-body">
+                Se han reportado <strong>{{ total_incidentes }}</strong> incidentes asociados a tu cuenta. Revisa tu historial para más detalles o contacta a tu supervisor si tienes dudas.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Horario Asignado</div>
+            <div class="card-body">
+                Tu horario de transporte actual es: <strong>{{ horario or 'No asignado' }}</strong>. Por favor, verifica esta información antes de cada jornada para evitar contratiempos.
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+

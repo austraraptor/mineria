@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Asistencia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --main-bg-color: #f4f6f9;
+            --sidebar-bg-color: #111;
+            --accent-color: #007bff;
+            --card-bg-color: white;
+            --text-color: #333;
+            --header-height: 60px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--main-bg-color);
+            color: var(--text-color);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80px;
+            background-color: var(--sidebar-bg-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: var(--header-height);
+            z-index: 1000;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 25px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav i {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        header {
+            background-color: var(--sidebar-bg-color);
+            color: white;
+            padding: 1rem 1rem;
+            padding-left: 100px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .main-content {
+            margin-left: 80px;
+            padding: 2rem;
+        }
+
+        .welcome-card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .welcome-card h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .icon-highlight {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="{{ url_for('asistencia_dashboard') }}">
+        <i class="fas fa-home"></i><span>panel</span>
+        <a href="{{ url_for('asistencia_inicio') }}">
+            <i class="fas fa-home"></i><span>Inicio</span>
+        </a>
+        <a href="{{ url_for('asistencia_lista') }}">
+            <i class="fas fa-id-badge"></i><span>Asistencia</span>
+        </a>
+        <a href="{{ url_for('logout') }}">
+            <i class="fas fa-sign-out-alt"></i><span>Salir</span>
+        </a>
+    </nav>
+
+    <header>
+        Panel de Asistencia
+    </header>
+
+    <div class="main-content">
+        <div class="welcome-card">
+            <div class="icon-highlight"><i class="fas fa-user-check"></i></div>
+            <h2>Bienvenido, {{ username }}</h2>
+            <p>Este panel ha sido diseñado para registrar, visualizar y gestionar la asistencia de los trabajadores de forma eficiente. 
+            Desde aquí podrás acceder a los reportes, verificar registros recientes y mantener el control sobre la puntualidad 
+            y participación del personal en las jornadas de transporte minero.</p>
+            <p>Utiliza el menú lateral para navegar entre las diferentes funciones disponibles.</p>
+        </div>
+    </div>
+
+</body>
+</html>
+
+

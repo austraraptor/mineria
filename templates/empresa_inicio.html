@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Empresa - Inicio</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+
+    nav {
+      width: 70px;
+      background-color: #111;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 60px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 20px 0;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    nav a:hover {
+      color: #1e90ff;
+    }
+
+    header {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-left: 70px;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .main-content {
+      margin-left: 70px;
+      padding: 2rem;
+    }
+
+    .seccion-intro {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: justify;
+    }
+
+    .seccion-intro h2 {
+      background-color: #111;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 1.3rem;
+    }
+
+    .seccion-intro p {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #1e90ff;
+      color: white;
+      font-size: 14px;
+    }
+
+    td {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('empresa_dashboard') }}"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
+    <a href="{{ url_for('empresa_inicio') }}"><i class="fas fa-building"></i><span>Inicio</span></a>
+    <a href="{{ url_for('empresa_notificaciones') }}"><i class="fas fa-bell"></i><span>Alertas</span></a>
+    <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+  </nav>
+
+  <header>{{ empresa }}</header>
+
+  <div class="main-content">
+    <div class="seccion-intro">
+      <h2>Panel de Control - Resumen General</h2>
+      <p>
+        Bienvenido al sistema de monitoreo de transporte minero. Desde este panel, podrá supervisar las operaciones asignadas a su empresa, visualizar los buses y conductores que transportan a sus mineros, consultar los horarios de salida y llegada, hacer seguimiento de la asistencia diaria, validar justificaciones en caso de ausencias, y generar reportes según sus necesidades operativas y contractuales. Esta vista le permite tener un control eficiente y detallado sobre los servicios ofrecidos por S.T.U.
+      </p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Minero</th>
+          <th>Turno</th>
+          <th>Horario Asignado</th>
+          <th>Asistencia</th>
+          <th>Fecha</th>
+          <th>Justificación</th>
+          <th>Servicio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in registros %}
+        <tr>
+          <td>{{ r.username }}</td>
+          <td>{{ r.turno or '-' }}</td>
+          <td>{{ r.horario_requerido or '-' }}</td>
+          <td>{{ r.estado or 'Sin registro' }}</td>
+          <td>{{ r.fecha or '-' }}</td>
+          <td>{{ r.justificacion or '-' }}</td>
+          <td>{{ r.status or '-' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
+

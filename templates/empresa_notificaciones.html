@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Empresa - Notificaciones</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+
+    nav {
+      width: 70px;
+      background-color: #111;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 60px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 20px 0;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    nav a:hover {
+      color: #1e90ff;
+    }
+
+    header {
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-left: 70px;
+    }
+
+    .main-content {
+      margin-left: 70px;
+      padding: 2rem;
+    }
+
+    .section-title {
+      background-color: #111;
+      color: white;
+      padding: 0.8rem 1rem;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+      font-size: 1.2rem;
+    }
+
+    .content-box {
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0 0 10px 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .alert {
+      color: #c0392b;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('empresa_dashboard') }}"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
+    <a href="{{ url_for('empresa_inicio') }}"><i class="fas fa-building"></i><span>Inicio</span></a>
+    <a href="{{ url_for('empresa_notificaciones') }}"><i class="fas fa-bell"></i><span>Alertas</span></a>
+    <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+  </nav>
+
+  <header>Panel de Notificaciones de la Empresa - {{ empresa }}</header>
+
+  <div class="main-content">
+    <div>
+      <div class="section-title">🚨 Vencimientos de Licencias</div>
+      <div class="content-box">
+        <p>A continuación, se detallan los conductores cuya licencia de conducir está próxima a vencer. Es importante tomar medidas para evitar interrupciones en el servicio de transporte:</p>
+        <ul>
+          {% for v in vencimientos %}
+            <li class="alert">{{ v.conductor }} - Licencia vence el {{ v.licencia_vencimiento }}</li>
+          {% else %}
+            <li>No hay licencias próximas a vencer en los próximos días.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">🚌 Retrasos o Cancelaciones</div>
+      <div class="content-box">
+        <p>Registro de incidentes recientes relacionados con retrasos en los viajes programados o cancelaciones imprevistas. Esta información permite a la empresa tomar acciones correctivas de manera oportuna:</p>
+        <ul>
+          {% for r in retrasos %}
+            <li class="alert">{{ r.username }} - {{ r.status }} ({{ r.start_date }})</li>
+          {% else %}
+            <li>No se han reportado retrasos o cancelaciones recientes en los registros del sistema.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas Minero</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;
+        }
+        nav {
+            position: fixed; top: 0; left: 0; width: 70px; height: 100vh;
+            background-color: #111; display: flex; flex-direction: column;
+            align-items: center; padding-top: 60px;
+        }
+        nav a {
+            color: white; text-decoration: none; margin: 20px 0;
+            display: flex; flex-direction: column; align-items: center; font-size: 12px;
+        }
+        nav a:hover { color: #1e90ff; }
+        main { margin-left: 90px; padding: 2rem; }
+
+        .section-title {
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            width: fit-content;
+            margin-bottom: -10px;
+        }
+
+        .info-bar {
+            background: white; padding: 20px; border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px;
+        }
+
+        .info-bar span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        ul {
+            background: white; padding: 15px 20px;
+            border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            list-style: none; margin-top: 15px;
+        }
+        ul li {
+            padding: 6px 0; border-bottom: 1px solid #eee;
+        }
+        ul li:last-child { border-bottom: none; }
+
+        .asistencia-btn {
+            display: block; margin: 30px auto 10px;
+            padding: 12px 24px; background: #1e90ff; color: white;
+            border: none; border-radius: 6px; cursor: pointer;
+            font-size: 16px;
+        }
+
+        .popup {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+            justify-content: center; align-items: center;
+        }
+        .popup-content {
+            background: white; padding: 25px; border-radius: 12px;
+            width: 350px; box-shadow: 0 0 12px rgba(0,0,0,0.25);
+        }
+        .popup-content h3 {
+            margin-top: 0; font-size: 20px;
+        }
+        .popup-content label {
+            display: block; margin-top: 10px; font-weight: bold;
+        }
+        .popup-content input, .popup-content textarea {
+            width: 100%; padding: 8px; margin-top: 5px;
+            border: 1px solid #ccc; border-radius: 6px;
+        }
+        .popup-content button {
+            margin-top: 15px; padding: 10px 16px;
+            border: none; border-radius: 6px;
+            background-color: #1e90ff; color: white; cursor: pointer;
+        }
+        .popup-content button:last-child {
+            background-color: #ccc; color: #333; margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="{{ url_for('minero_dashboard') }}"><i class="fas fa-home"></i><span>Panel</span></a>
+    <a href="{{ url_for('minero_inicio') }}"><i class="fas fa-home"></i><span>Inicio</span></a>
+    <a href="{{ url_for('minero_perfil') }}"><i class="fas fa-user"></i><span>Perfil</span></a>
+    <a href="{{ url_for('minero_reservas') }}"><i class="fas fa-car"></i><span>Reservas</span></a>
+    <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+</nav>
+
+<main>
+    <div class="section-title">Información del Bus Asignado</div>
+    <div class="info-bar">
+        <span><strong>Conductor:</strong> {{ asignacion.driver_name }}</span>
+        <span><strong>Vehículo:</strong> {{ asignacion.model }}</span>
+        <span><strong>Placa:</strong> {{ asignacion.plate }}</span>
+        <span><strong>Licencia:</strong> {{ asignacion.license_type }}</span>
+    </div>
+
+    {% if otros_mineros %}
+        <div class="section-title">Mineros Asignados al Mismo Vehículo</div>
+        <ul>
+            {% for m in otros_mineros %}
+                <li>{{ m.username }} - {{ m.company }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <button class="asistencia-btn" onclick="document.getElementById('popup-tardanza').style.display='flex'">Justificar Tardanza</button>
+
+    <div id="popup-tardanza" class="popup">
+        <div class="popup-content">
+            <h3>Justificación de Tardanza</h3>
+            <form method="POST" action="{{ url_for('justificar_tardanza') }}">
+                <label>Nombre del Minero:</label>
+                <input type="text" name="nombre" required>
+                <label>ID:</label>
+                <input type="text" name="id" required>
+                <label>Nombre del Conductor:</label>
+                <input type="text" name="conductor" required value="{{ asignacion.driver_name }}">
+                <label>Motivo:</label>
+                <textarea name="mensaje" required></textarea>
+                <button type="submit">Enviar Justificación</button>
+                <button type="button" onclick="document.getElementById('popup-tardanza').style.display='none'">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>
+
+
+
+

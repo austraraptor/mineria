@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Administrador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70px;
+            background-color: #111;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        nav a:hover {
+            color: #1e90ff;
+        }
+
+        header {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            font-size: 1.6rem;
+            margin-left: 70px;
+            font-weight: bold;
+        }
+
+        .main-content {
+            margin-left: 70px;
+            padding: 2rem;
+        }
+
+        .section-title {
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: -15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 16px;
+        }
+
+        .card p {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .button {
+            background-color: #1e90ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 10px 0 0;
+        }
+
+        .button:hover {
+            background-color: #187bcd;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .quick-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-chart-bar"></i><span>Panel</span></a>
+        <a href="{{ url_for('admin_inicio') }}"><i class="fas fa-home"></i><span>Inicio</span></a>
+        <a href="{{ url_for('admin_registro') }}"><i class="fas fa-user-plus"></i><span>Registro</span></a>
+        <a href="{{ url_for('admin_asignar') }}"><i class="fas fa-bus"></i><span>Asignar</span></a>
+        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i><span>Salir</span></a>
+    </nav>
+
+    <header>Panel de Administración</header>
+
+    <div class="main-content">
+        <div class="section-title">Bienvenida</div>
+        <div class="card">
+            <p>Bienvenido(a) al panel de administración del sistema de transporte minero. Aquí puedes realizar gestiones clave como el registro de usuarios, la asignación de vehículos, el control de asistencia y otras funciones administrativas esenciales.</p>
+            <p>Este entorno ha sido diseñado para facilitar tu experiencia como administrador, brindándote herramientas accesibles y bien organizadas.</p>
+            <a href="{{ url_for('admin_inicio') }}" class="button">Ir al Panel Principal</a>
+        </div>
+
+        <div class="section-title">Accesos Rápidos</div>
+        <div class="card">
+            <p>Utiliza los siguientes accesos directos para realizar tareas frecuentes:</p>
+            <div class="quick-actions">
+                <a class="button" href="{{ url_for('admin_registro') }}"><i class="fas fa-user-plus"></i> Registrar Usuario</a>
+                <a class="button" href="{{ url_for('admin_asignar') }}"><i class="fas fa-bus"></i> Asignar Transporte</a>
+                <a class="button" href="{{ url_for('admin_inicio') }}"><i class="fas fa-calendar-check"></i> Revisar Asistencia</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
